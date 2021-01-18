@@ -1,22 +1,20 @@
+var fs = require('fs');
+var path = require('path');
 const router = require('express').Router()
 const Product = require('../models/product')
-
-const upload = require('../middlewares/upload-photo')
+const storeImagePath = require('../middlewares/upload-photo-mongodb')
 
 // POST request = create a new product
-
-// router.post('/products', upload.single('photo'), async (req, res) => {
-router.post('/products', async (req, res) => {
+router.post('/products', storeImagePath('upload-images/product-images').single('image'), async (req, res) => {
     try {
         let product = new Product()
 
         product.title =  req.body.title
         product.description = req.body.description
-        product.photo = req.body.photo
-        product.stockQuantity = req.body.stockQuantity
-        product.photo = req.body.photo
-
-        console.log(product)
+        product.photo = {
+            data: fs.readFileSync(path.join(__dirname, '..' + '/upload-images/product-images/' + req.file.filename)),
+            contentType: 'image/png'
+        }
 
         await product.save()
 
@@ -28,7 +26,7 @@ router.post('/products', async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: err.message
+            message: error.message
         })
     }
 })
@@ -40,5 +38,17 @@ router.post('/products', async (req, res) => {
 // PUT request = Update a single product
 
 // DELETE request = delete a single product
+
+// GET - RETRIVING THE PRODUCTS IMAGES ON EJS TEMPLATE - /api/all-images
+router.get('/all-images', (req, res) => {
+    Product.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('app', { items: items });
+        }
+    });
+});
 
 module.exports = router

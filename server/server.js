@@ -16,6 +16,9 @@ app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// Set EJS as templating engine 
+app.set("view engine", "ejs");
+
 //Require API's
 const productRoutes = require('./routes/product')
 app.use('/api', productRoutes)

@@ -6,7 +6,11 @@ const ProductSchema = new Schema({
     owner: { type: Schema.Types.ObjectId, ref: 'Owner' },
     title: String,
     description: String,
-    photo: String,
+    photo:
+    {
+        data: Buffer,
+        contentType: String
+    },
     price: Number,
     stockQuantity: Number,
     rating: [ Number ]
