@@ -21,7 +21,12 @@ app.set("view engine", "ejs");
 
 //Require API's
 const productRoutes = require('./routes/product')
+const categoryRoutes = require('./routes/category')
+const ownerRoutes = require('./routes/owner')
+
 app.use('/api', productRoutes)
+app.use('/api', categoryRoutes)
+app.use('/api', ownerRoutes)
 
 const PORT = process.env.PORT || 3000
 

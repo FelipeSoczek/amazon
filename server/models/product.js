@@ -9,7 +9,10 @@ const ProductSchema = new Schema({
     photo:
     {
         data: Buffer,
-        contentType: String
+        contentType: String,
+        path: String,
+        filename: String,
+        destination: String
     },
     price: Number,
     stockQuantity: Number,
