@@ -5,20 +5,22 @@ const Product = require('../models/product')
 const storeImagePath = require('../middlewares/upload-photo-mongodb')
 
 // POST request = create a new product
-router.post('/products', storeImagePath('upload-images/product-images').single('image'), async (req, res) => {
+// router.post('/products', storeImagePath('upload-images/product-images').single('image'), async (req, res) => {
+router.post('/products', storeImagePath('../admin/assets/product-images').single('image'), async (req, res) => {
     try {
         let product = new Product()
 
         product.title =  req.body.title
         product.description = req.body.description
         product.photo = {
-            data: fs.readFileSync(
-                path.join(__dirname, '..' + '/upload-images/product-images/' + req.file.filename)
-            ),
+            // data: fs.readFileSync(
+            //     path.join(__dirname, '..' + '/upload-images/product-images/' + req.file.filename)
+            // ),
             contentType: 'image/png',
-            path: req.file.path,
+            // path: req.file.path,
             filename: req.file.filename,
-            destination: req.file.destination
+            // destination: req.file.destination.replace("../admin/", "~"),
+            // imagePath: req.file.destination.replace("../admin/", "@/") + '/' + req.file.filename
         }
 
         await product.save()

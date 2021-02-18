@@ -12,7 +12,8 @@ const ProductSchema = new Schema({
         contentType: String,
         path: String,
         filename: String,
-        destination: String
+        destination: String,
+        imagePath: String
     },
     price: Number,
     stockQuantity: Number,
