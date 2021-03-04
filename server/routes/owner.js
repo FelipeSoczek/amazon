@@ -1,12 +1,17 @@
 const router = require('express').Router()
 const Owner = require('../models/owner')
+const storeImagePath = require('../middlewares/upload-photo-mongodb')
 
 //POST api
-router.post('/owners', async (req, res) => {
+router.post('/owners', storeImagePath('../admin/assets/owner-images').single('image'), async (req, res) => {
     try {
         let owner = new Owner()
         owner.name = req.body.name
         owner.about = req.body.about
+        owner.photo = {
+            contentType: 'image/png',
+            filename: req.file.filename,
+        }
         await owner.save()
 
         res.json({

@@ -50,7 +50,7 @@
             <!-- Product buttons -->
             <div class="a-row">
               <a href="#" class="a-button-history margin-right-10">Update</a>
-              <a href="#" class="a-button-history margin-right-10">Delete</a>
+              <a href="#" class="a-button-history margin-right-10" @click="onDeleteProduct(product._id, index)">Delete</a>
             </div>
           </div>
         </div>
@@ -72,6 +72,24 @@ export default {
       }
     } catch (error) {
       
+    }
+  },
+  methods: {
+    async onDeleteProduct(id, index) {
+      try {
+        let response = await this.$axios.$delete(`http://localhost:3000/api/products/${id}`)
+
+        if (response.status) {
+          //remove
+          this.products.splice(index, 1)
+          //update
+          // let newFruit = 'banana'
+          // this.products.splice(1, 1, newFruit)
+          // ['apple', 'banana', 'ameixa']
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

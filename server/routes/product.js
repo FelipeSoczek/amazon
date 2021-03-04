@@ -10,18 +10,16 @@ router.post('/products', storeImagePath('../admin/assets/product-images').single
     try {
         let product = new Product()
 
+        product.ownerID = req.body.ownerID
+        product.categoryID = req.body.categoryID
+        product.price = req.body.price
         product.title =  req.body.title
         product.description = req.body.description
         product.photo = {
-            // data: fs.readFileSync(
-            //     path.join(__dirname, '..' + '/upload-images/product-images/' + req.file.filename)
-            // ),
             contentType: 'image/png',
-            // path: req.file.path,
             filename: req.file.filename,
-            // destination: req.file.destination.replace("../admin/", "~"),
-            // imagePath: req.file.destination.replace("../admin/", "@/") + '/' + req.file.filename
         }
+        product.stockQuantity = req.body.stockQuantity
 
         await product.save()
 

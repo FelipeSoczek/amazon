@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const dbConnection = require('./database/connection')
+const cors = require('cors')
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ const app = express()
 dbConnection()
 
 //Middlewares
+app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
