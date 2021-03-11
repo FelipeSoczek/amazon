@@ -7,9 +7,9 @@
           <h1 class="a-size-large a-spacing-none a-text-normal">Todos os produtos</h1>
           <div class="a-spacing-large"></div>
           <!-- Button -->
-          <a href="#" class="a-button-buy-again">Adicionar novo produto</a>
-          <a href="#" class="a-button-history margin-right-10">Adicionar nova categoria</a>
-          <a href="#" class="a-button-history margin-right-10">Adicionar novo dono</a>
+          <nuxt-link to="/products" class="a-button-buy-again">Adicionar novo produto</nuxt-link>
+          <nuxt-link to="/category" class="a-button-history margin-right-10">Adicionar nova categoria</nuxt-link>
+          <nuxt-link to="/owner" class="a-button-history margin-right-10">Adicionar novo dono</nuxt-link>
           <!-- Listing page -->
         </div>
       </div>
@@ -49,7 +49,7 @@
             </div>
             <!-- Product buttons -->
             <div class="a-row">
-              <a href="#" class="a-button-history margin-right-10">Update</a>
+              <nuxt-link :to="`/products/${product._id}`" class="a-button-history margin-right-10">Update</nuxt-link>
               <a href="#" class="a-button-history margin-right-10" @click="onDeleteProduct(product._id, index)">Delete</a>
             </div>
           </div>
